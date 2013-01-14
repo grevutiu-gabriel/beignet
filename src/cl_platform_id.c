@@ -60,23 +60,20 @@ cl_get_platform_ids(cl_uint          num_entries,
                     cl_platform_id * platforms,
                     cl_uint *        num_platforms)
 {
-  if (num_platforms != NULL)
-    *num_platforms = 1;
-  if (UNLIKELY(platforms == NULL))
-    return CL_SUCCESS;
-  if (UNLIKELY(num_entries == 0))
+  if (UNLIKELY(num_entries == 0 && platforms != NULL))
     return CL_INVALID_VALUE;
   if (UNLIKELY(num_platforms == NULL && platforms == NULL))
-    return CL_SUCCESS;
-#if 0
-  if (UNLIKELY(num_platforms == NULL && platforms != NULL))
-    return CL_INVALID_VALUE;
-#endif
-  if (UNLIKELY(num_platforms != NULL && platforms == NULL))
     return CL_INVALID_VALUE;
 
   /* Easy right now, only one platform is supported */
-  *platforms = intel_platform;
+  if (num_platforms != NULL)
+    *num_platforms = 1;
+
+  if (platforms != NULL)
+  {
+    *platforms = intel_platform;
+  }
+
   return CL_SUCCESS;
 }
 
