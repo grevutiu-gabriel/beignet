@@ -17,14 +17,10 @@
  * Author: Benjamin Segovia <benjamin.segovia@intel.com>
  */
 
-/* $Revision: 11708 $ on $Date: 2010-06-13 23:36:24 -0700 (Sun, 13 Jun 2010) $ */
-
 #ifndef __OPENCL_CL_D3D10_H
 #define __OPENCL_CL_D3D10_H
 
-#ifdef __D3D10__
 #include <d3d10.h>
-#endif
 #include <CL/cl.h>
 #include <CL/cl_platform.h>
 
@@ -70,11 +66,6 @@ typedef cl_uint cl_d3d10_device_set_khr;
 #define CL_COMMAND_RELEASE_D3D10_OBJECTS_KHR         0x4018
 
 /******************************************************************************/
-#ifndef __D3D10__
-typedef struct {int i;} ID3D10Buffer;
-typedef struct {int i;} ID3D10Texture2D;
-typedef struct {int i;} ID3D10Texture3D;
-#endif
 
 typedef CL_API_ENTRY cl_int (CL_API_CALL *clGetDeviceIDsFromD3D10KHR_fn)(
     cl_platform_id             platform,
@@ -116,7 +107,7 @@ typedef CL_API_ENTRY cl_int (CL_API_CALL *clEnqueueAcquireD3D10ObjectsKHR_fn)(
 typedef CL_API_ENTRY cl_int (CL_API_CALL *clEnqueueReleaseD3D10ObjectsKHR_fn)(
     cl_command_queue command_queue,
     cl_uint          num_objects,
-    cl_mem *         mem_objects,
+    const cl_mem *   mem_objects,
     cl_uint          num_events_in_wait_list,
     const cl_event * event_wait_list,
     cl_event *       event) CL_API_SUFFIX__VERSION_1_0;
